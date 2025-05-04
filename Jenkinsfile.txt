@@ -1,32 +1,22 @@
 pipeline {
-    agent any  // Runs on any available agent
+    agent any
 
     environment {
         DOCKER_IMAGE = "afergus3/webserver-images"
-        DOCKER_CREDENTIALS = "docker-hub-credentials"  // Stored in Jenkins credentials
+        DOCKER_CREDENTIALS = "docker-hub-credentials"
     }
 
     stages {
         stage('Clone Repository') {
             steps {
-                git branch: 'master', url: 'https://github.com/afergus3/moregithublessons.git'
+                git branch: 'main', url: 'https://github.com/afergus3/moregithublessons.git'
             }
         }
 
         stage('Build Docker Image') {
             steps {
                 script {
-                    docker.build("${DOCKER_IMAGE}:latest")
-                }
-            }
-        }
-
-        stage('Login to Docker Hub') {
-            steps {
-                script {
-                    docker.withRegistry('https://registry-1.docker.io/v2/', DOCKER_CREDENTIALS) {
-                        echo "Logged in to Docker Hub"
-                    }
+                    dockerImage = docker.build("${DOCKER_IMAGE}:latest")
                 }
             }
         }
@@ -34,8 +24,8 @@ pipeline {
         stage('Push Image to Docker Hub') {
             steps {
                 script {
-                    docker.withRegistry('https://index.docker.io/v1/', DOCKER_CREDENTIALS) {
-                        docker.image("${DOCKER_IMAGE}:latest").push()
+                    docker.withRegistry('', DOCKER_CREDENTIALS) {
+                        dockerImage.push()
                     }
                 }
             }
@@ -44,11 +34,8 @@ pipeline {
         stage('Deploy Container') {
             steps {
                 script {
-                    // Stop running container (if exists)
                     sh "docker stop my-webpage-container || true"
                     sh "docker rm my-webpage-container || true"
-
-                    // Run the new container
                     sh "docker run -d --name my-webpage-container -p 80:80 ${DOCKER_IMAGE}:latest"
                 }
             }
