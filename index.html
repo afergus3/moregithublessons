@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Explore Grenada</title>
+  <style>
+    /* Reset some default browser styles */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #f9f9f9;
+      color: #333;
+      line-height: 1.6;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 1.5rem 1rem;
+    }
+
+    /* Header Section */
+    #home {
+      background: linear-gradient(135deg, #00796b, #004d40);
+      color: #fff;
+      padding: 4rem 0;
+      text-align: center;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+      border-radius: 0 0 20px 20px;
+    }
+
+    #home h1 {
+      font-size: 3rem;
+      margin-bottom: 0.5rem;
+      letter-spacing: 2px;
+    }
+
+    #home p {
+      font-size: 1.25rem;
+      font-weight: 300;
+      font-style: italic;
+    }
+
+    /* Section Titles */
+    section h2 {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+      border-bottom: 3px solid #00796b;
+      padding-bottom: 0.25rem;
+      color: #00796b;
+    }
+
+    /* Attractions List */
+    #attractions ul {
+      list-style-type: square;
+      padding-left: 1.5rem;
+      font-size: 1.1rem;
+    }
+
+    #attractions li {
+      margin-bottom: 0.5rem;
+    }
+
+    /* Culture Section */
+    #culture p {
+      font-size: 1.1rem;
+      max-width: 700px;
+    }
+
+    /* Footer */
+    footer#contact {
+      background: #004d40;
+      color: #e0f2f1;
+      text-align: center;
+      padding: 1.5rem 1rem;
+      margin-top: 3rem;
+      font-size: 0.9rem;
+      box-shadow: 0 -3px 6px rgba(0,0,0,0.1);
+    }
+
+    footer#contact p {
+      margin: 0.3rem 0;
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 600px) {
+      #home h1 {
+        font-size: 2rem;
+      }
+      section h2 {
+        font-size: 1.5rem;
+      }
+      #home p, #culture p, #attractions ul {
+        font-size: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <section id="home">
+    <div class="container">
+      <h1>Explore Grenada</h1>
+      <p>The Spice Island of the Caribbean</p>
+    </div>
+  </section>
+
+  <section id="attractions">
+    <div class="container">
+      <h2>Must-See Attractions</h2>
+      <ul>
+        <li>Grand Anse Beach</li>
+        <li>Underwater Sculpture Park</li>
+        <li>Annandale Falls</li>
+        <li>Fort George</li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="culture">
+    <div class="container">
+      <h2>Rich Cultural Heritage</h2>
+      <p>Experience the vibrant blend of African, French, and British influences through music, festivals, and cuisine.</p>
+    </div>
+  </section>
+
+  <footer id="contact">
+    <div class="container">
+      <p>Contact: afergus@grenada.gd</p>
+      <p>© 2025 Explore Grenada by Anson</p>
+    </div>
+  </footer>
+</body>
+</html>
