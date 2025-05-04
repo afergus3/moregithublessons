@@ -3,7 +3,7 @@ pipeline {
 
     environment {
         DOCKER_IMAGE = "afergus3/webserver-images"
-        DOCKER_CREDENTIALS = "docker-hub-credentials"
+        DOCKER_CREDENTIALS = "docker-hub-credentials"  // Jenkins credential ID with username=afergus3 and password=PAT
     }
 
     stages {
@@ -16,7 +16,8 @@ pipeline {
         stage('Build Docker Image') {
             steps {
                 script {
-                    dockerImage = docker.build("${DOCKER_IMAGE}:latest")
+                    // Declare dockerImage with def to avoid Groovy warnings
+                    def dockerImage = docker.build("${DOCKER_IMAGE}:latest")
                 }
             }
         }
@@ -24,8 +25,9 @@ pipeline {
         stage('Push Image to Docker Hub') {
             steps {
                 script {
+                    // Authenticate and push image to Docker Hub using PAT stored in Jenkins credentials
                     docker.withRegistry('', DOCKER_CREDENTIALS) {
-                        dockerImage.push()
+                        docker.image("${DOCKER_IMAGE}:latest").push()
                     }
                 }
             }
@@ -34,8 +36,11 @@ pipeline {
         stage('Deploy Container') {
             steps {
                 script {
+                    // Stop and remove any existing container named my-webpage-container
                     sh "docker stop my-webpage-container || true"
                     sh "docker rm my-webpage-container || true"
+
+                    // Run the new container mapping port 80
                     sh "docker run -d --name my-webpage-container -p 80:80 ${DOCKER_IMAGE}:latest"
                 }
             }
